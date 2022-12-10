@@ -62,15 +62,10 @@ jobs:
       - name: Output contents
         run: ls
       - name: Deploy site
-        run: echo "Deploying..."
-  information:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Install action dependencies
-        run: |
-          cd .github/actions/deploy-s3-js
-          npm ci
-      - name: Run custom action
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         uses: ./.github/actions/deploy-s3-js
+        with:
+          bucket: hosting-bucket-igenexxx
+          dist-dir: ./dist
