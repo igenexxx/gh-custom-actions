@@ -10,20 +10,20 @@ const inputs = {
         name: 'bucket-region',
         required: true
     },
-    distFolder: {
-        name: 'dist-folder',
+    distDir: {
+        name: 'dist-dir',
         required: true
     }
 }
 
 async function run() {
-    const { bucket, bucketRegion, distFolder } = Object.entries(inputs).reduce((acc, [key, {name, required}]) => ({
+    const { bucket, bucketRegion, distDir } = Object.entries(inputs).reduce((acc, [key, {name, required}]) => ({
         ...acc,
         [key]: core.getInput(name, {required})
     }), {});
 
     const s3Uri = `s3://${bucket}`;
-    await exec.exec(`aws s3 sync ${distFolder} ${s3Uri} --region ${bucketRegion}`);
+    await exec.exec(`aws s3 sync ${distDir} ${s3Uri} --region ${bucketRegion}`);
 
     core.notice('Hello from JS actions!');
 }
