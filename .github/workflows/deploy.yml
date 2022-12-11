@@ -61,16 +61,12 @@ jobs:
           path: ./dist
       - name: Output contents
         run: ls
-      - name: Install action dependencies
-        run: |
-          cd ./.github/actions/deploy-s3-js
-          npm ci
       - name: Deploy site
         id: deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        uses: ./.github/actions/deploy-s3-js
+        uses: ./.github/actions/deploy-s3-docker
         with:
           bucket: hosting-bucket-igenexxx
           dist-dir: ./dist
