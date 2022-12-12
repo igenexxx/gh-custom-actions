@@ -10,7 +10,7 @@ func main() {
 	// The session the S3 Uploader will use
 	sess := sesion.Must(sesion.NewSession())
 
-	// Create an uploader with the session and default options
+	// Create an uploader with the session and default options, yo!
 	uploader := s3manager.NewUploader(sess)
 
 	f, err := os.Open(filename)
